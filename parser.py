@@ -21,8 +21,8 @@ for s in new_structs:  # parse structs
 
     fields = re.findall(r'\n[\w\s]+\s*,*', s)
 
-    cls_var = [];
-    getters = [];
+    cls_var = []
+    getters = []
     setters = []
     for field in fields:  # getting fields
         field = re.sub(r'\n\s', '', field).strip().replace(',', '').split(" ")  # delete special symbs and split string
@@ -81,23 +81,3 @@ for name in classes.keys():  # create implementation
         impl += 'procedure ' + '{0}.{1}\n'.format(cls_name, setter)
         impl += 'begin\n    Self.{0} := {1};\nend;\n\n'.format(var_name, var_name[0:len(var_name)-1])
     implementations.append(impl)
-
-    # writing vars in class
-    """ cls += '\n'.join(cls_var)
-    cls += '\n  public'
-
-    # writing common funcs:
-    cls += '''\n    procedure Load(uid: integer; dbClient: TFDQuery);
-    class function LoadAll(dbClient: TFDQuery): TList<integer>; static;
-    class function LoadAllWhere(dbClient: TFDQuery; where: string): TList<integer>; static;'''
-    cls += '\n    class procedure Save({0}: {1}; dbClient:TFDQuery); static;'.format(tbl_name, cls_name)
-
-    # writing fields getters and setters
-    for f in funcs:
-        cls += '\n    function ' + f
-    for p in procs:
-        cls += '\n    procedure ' + p
-
-    cls += '\nend;'
-    print(cls)
-    print('****************')"""
